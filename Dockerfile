@@ -8,19 +8,10 @@ RUN apt-get update && apt-get install -y \
     cmake
 
 # install Anaconda3
-RUN wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-5.2.0-Linux-x86_64.sh -O ~/anaconda3.sh \
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O ~/anaconda3.sh \
     && bash ~/anaconda3.sh -b -p /home/anaconda3 \
     && rm ~/anaconda3.sh
 ENV PATH /home/anaconda3/bin:$PATH
-
-# change mirror
-RUN mkdir ~/.pip && \
-    cd ~/.pip/  && \
-    echo "[global] \ntrusted-host = https://pypi.tuna.tsinghua.edu.cn \nindex-url = https://pypi.tuna.tsinghua.edu.cn/simple" >  pip.conf
-
-RUN conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ \
-    && conda config --set show_channel_urls yes
-
 # note: forcibly use /bin/bash, may cause some problem
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
